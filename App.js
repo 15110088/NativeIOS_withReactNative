@@ -8,11 +8,13 @@ import { View,
   findNodeHandle
 
 } from 'react-native';
-import CounterView from './CounterView'
+//import CounterView from './CounterView'
+// import Map   from './Map'
 
 
- 
-class App extends Component {
+const RNCounterView = requireNativeComponent("MapArcView");
+
+  class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,6 +27,8 @@ class App extends Component {
   //     count: e.nativeEvent.count
   //   })
   // }
+
+
   increment = () => {
     this.setState({ count: this.state.count + 1 })
   }
@@ -59,12 +63,13 @@ class App extends Component {
           </Text>
           
         </TouchableOpacity>
-        <CounterView
+        {/* <CounterView
           style={ styles.wrapper }
           count={2}  // truyền props vào native 
           ref={e => this.counterRef = e} // khai báo để truyền data reaect -> native
           onUpdate={this.update}  // truyền event từ  native -> react 
-        />
+        /> */}
+     <RNCounterView  style={ styles.wrapper }/>
       </View>
     );  
   }

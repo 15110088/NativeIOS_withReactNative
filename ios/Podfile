@@ -5,9 +5,7 @@ platform :ios, '10.0'
 
 target 'nativeIOS' do
   config = use_native_modules!
-
   use_react_native!(:path => config["reactNativePath"])
-
   target 'nativeIOSTests' do
     inherit! :complete
     # Pods for testing
