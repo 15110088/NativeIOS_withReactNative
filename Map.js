@@ -5,13 +5,20 @@ import {
   UIManager,
   findNodeHandle
 } from "react-native";
-const COMPONENT_NAME = "MapArc";
+const COMPONENT_NAME = "MapArcView";
 const RNCounterView = requireNativeComponent(COMPONENT_NAME);
 
 export default class Map extends Component {
+   _onUpdate = event => {
+    if (this.props.onUpdate) {
+      this.props.onUpdate(event);
+    }
+    };
     render() {
+      const {style } = this.props;
+
       return (
-        <RNCounterView   />
+        <RNCounterView   onUpdate={this._onUpdate}  style={style } />
       );
     }
   }

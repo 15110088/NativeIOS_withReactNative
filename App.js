@@ -9,10 +9,10 @@ import { View,
 
 } from 'react-native';
 //import CounterView from './CounterView'
-// import Map   from './Map'
+ import Map   from './Map'
 
 
-const RNCounterView = requireNativeComponent("MapArcView");
+//const RNCounterView = requireNativeComponent("MapArcView");
 
   class App extends Component {
   constructor(props) {
@@ -22,13 +22,10 @@ const RNCounterView = requireNativeComponent("MapArcView");
 
     };
   }
-  // update = e => {
-  //   this.setState({
-  //     count: e.nativeEvent.count
-  //   })
-  // }
-
-
+  update = e => {
+    console.log(e.nativeEvent.count)// lấy dữ liệu từ native 
+ 
+  }
   increment = () => {
     this.setState({ count: this.state.count + 1 })
   }
@@ -42,14 +39,15 @@ const RNCounterView = requireNativeComponent("MapArcView");
   // }
 
 
-  update = e => {
-    this.setState({ count: e.count })
-  };
 
   updateNative = () => {
     this.counterRef.update(this.state.count);
   };
 
+  updateNativeMap = () => {
+    this.counterRef.updateTitle(this.state.count);
+  };
+ 
   render() {
     return (
       <View style={styles.container}>
@@ -69,7 +67,7 @@ const RNCounterView = requireNativeComponent("MapArcView");
           ref={e => this.counterRef = e} // khai báo để truyền data reaect -> native
           onUpdate={this.update}  // truyền event từ  native -> react 
         /> */}
-     <RNCounterView  style={ styles.wrapper }/>
+     <Map   onUpdate={this.update}    ref={e => this.mapRef = e}    style={ styles.wrapper }/>
       </View>
     );  
   }

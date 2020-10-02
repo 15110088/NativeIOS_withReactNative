@@ -11,9 +11,11 @@ import ArcGIS
 
 class MapArcView: UIView ,AGSGeoViewTouchDelegate,AGSCalloutDelegate{
   let credential=AGSCredential(user: "dothibienhoa", password: "dothibienhoa2020")
+  @objc var onUpdate: RCTDirectEventBlock? // sử dung truyền dữ liệu từ native sang react
+
 
   
-   let label :UILabel={
+   var label :UILabel={
     let  b:UILabel = UILabel();
     b.text = "Swift Counter"
     b.textAlignment = .center
@@ -56,13 +58,11 @@ class MapArcView: UIView ,AGSGeoViewTouchDelegate,AGSCalloutDelegate{
     override init(frame: CGRect) {
       super.init(frame: frame)
       setupView();
-
-     
     }
-
   private func setupView() {
     map.touchDelegate=self
     self.addSubview(map);
+    self.addSubview(label)
     self.backgroundColor = .red
     }
   func geoView(_ geoView: AGSGeoView, didTapAtScreenPoint screenPoint: CGPoint, mapPoint: AGSPoint) {
@@ -71,11 +71,23 @@ class MapArcView: UIView ,AGSGeoViewTouchDelegate,AGSCalloutDelegate{
       map.callout.detail=String(format: "x: %.2f, y: %.2f",mapPoint.x,mapPoint.y );
       map.callout.isAccessoryButtonHidden=true;
       map.callout.show(at: mapPoint, screenOffset: CGPoint.zero, rotateOffsetWithMap: false, animated: true);
-      
+      sendUpdate();
     }
     else{
       map.callout.dismiss();
     }
   }
-
+  @objc func sendUpdate() {// truyền sự kiên biến  count qua react native  khi long press
+         onUpdate!(["count": 123])// trên react. dùng e.nativeEvent.count để lấy biến count
+  }
+  @objc func updateTitle(value: NSNumber) {
+    
+    label.text="123123123"
+  }
+  
 }
+
+
+  
+
+
